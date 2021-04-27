@@ -9,19 +9,19 @@
 </head>
 <body>
     <h1>ASSIGNMENT STATEMENT</h1>
-    <input type="hidden" id="customer-id" autocomplete="off" />
+    <input type="hidden" id="statement-id" autocomplete="off" />
 
-    Customer name : <input id="customer-name" autocomplete="off" />
+    Date : <input type="date" id="statement-date" />
     <br/>
-    Birthdate : <input type="date" id="birthdate" />
-    <br/>
-    Address : <textarea id="address" rows="4" cols="50" ></textarea>
-    <br/>
-    Active flag :
-    <select id="active-flag">
-        <option value="Y">yes</option>
-        <option value="N">no</option>
+    Type :
+    <select id="statement-type">
+        <option value="I">Income</option>
+        <option value="E">Expense</option>
     </select>
+    <br/>
+    Amount : <input type="number" id="amount" autocomplete="off" />
+    <br/>
+    Description : <textarea id="description" rows="4" cols="50" ></textarea>
     <br/>
     <br/>
     <button onclick="saveButtonOnClick()">Submit</button>

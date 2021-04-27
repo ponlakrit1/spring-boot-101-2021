@@ -26,8 +26,8 @@ public class StatementEntity {
     @Column(name="statement_amount")
     private double statementAmount;
 
-    @Column(name="statement_detail")
-    private String statementDetail;
+    @Column(name="statement_desc")
+    private String statementDesc;
 
     public StatementEntity(){
 

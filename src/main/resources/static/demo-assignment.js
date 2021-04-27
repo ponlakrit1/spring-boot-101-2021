@@ -1,20 +1,20 @@
 var ROOT_URL = "http://localhost:8080";
-var customerList;
+var statementList;
 var mode = "I";
 
-function getCustomerData(){
-    fetch(ROOT_URL+"/customer/")
+function getStatementData(){
+    fetch(ROOT_URL+"/statement/")
         .then(function(response) {
             response.json().then(function(data) {
-                customerList = data;
+                statementList = data;
 
-                let tableText = "<table border='1'><th>Customer name</th><th>Birthdate</th><th>Address</th><th>Active flag</th><th></th><th></th>";
+                let tableText = "<table border='1'><th>Date</th><th>Type</th><th>Amount</th><th>Description</th><th></th><th></th>";
                 for (let index in data) {
                     tableText += "<tr>" +
-                                    "<td>"+data[index].customerName+"</td>" +
-                                    "<td>"+data[index].birthdate+"</td>" +
-                                    "<td>"+data[index].address+"</td>" +
-                                    "<td>"+(data[index].activeFlag == "Y" ? "yes" : "no")+"</td>" +
+                                    "<td>"+data[index].statementDate+"</td>" +
+                                    "<td>"+(data[index].statementType == "I" ? "Income" : "Expense")+"</td>" +
+                                    "<td>"+data[index].statementAmount+"</td>" +
+                                    "<td>"+data[index].statementDesc+"</td>" +
                                     "<td><button onclick='editButtonOnClick("+index+")'>Edit</button></td>" +
                                     "<td><button onclick='deleteButtonOnClick("+index+")'>Delete</button></td>" +
                                   "</tr>";
@@ -33,31 +33,29 @@ function saveButtonOnClick(){
 
     if(mode == "I") {
         formData= {
-            customerName: document.getElementById("customer-name").value,
-            birthdate: document.getElementById("birthdate").value,
-            address: document.getElementById("address").value,
-            activeFlag: document.getElementById("active-flag").value,
+            statementDate: document.getElementById("statement-date").value,
+            statementType: document.getElementById("statement-type").value,
+            statementAmount: document.getElementById("amount").value,
+            statementDesc: document.getElementById("description").value,
         }
     } else {
         formData= {
-            customerId: document.getElementById("customer-id").value,
-            customerName: document.getElementById("customer-name").value,
-            birthdate: document.getElementById("birthdate").value,
-            address: document.getElementById("address").value,
-            activeFlag: document.getElementById("active-flag").value,
+            statementId: document.getElementById("statement-id").value,
+            statementDate: document.getElementById("statement-date").value,
+            statementType: document.getElementById("statement-type").value,
+            statementAmount: document.getElementById("amount").value,
+            statementDesc: document.getElementById("description").value,
         }
     }
 
-    fetch(ROOT_URL+"/customer/", {
+    fetch(ROOT_URL+"/statement/", {
         method: mode == "I" ? "POST" : "PUT",
         body: JSON.stringify(formData),
         headers: {
             'Content-Type': 'application/json'
         },
     }).then(response => {
-//        console.log(response.json());
-
-        getCustomerData();
+        getStatementData();
         resetButtonOnClick();
     });
 }
@@ -65,21 +63,20 @@ function saveButtonOnClick(){
 function editButtonOnClick(index){
     mode = "U";
 
-    document.getElementById("customer-id").value = customerList[index].customerId;
-    document.getElementById("customer-name").value = customerList[index].customerName;
-    document.getElementById("birthdate").value = customerList[index].birthdate.slice(0, 10);
-    document.getElementById("address").value = customerList[index].address;
-    document.getElementById("active-flag").value = customerList[index].activeFlag;
+    document.getElementById("statement-id").value = statementList[index].statementId;
+    document.getElementById("statement-date").value = statementList[index].statementDate.slice(0, 10);
+    document.getElementById("statement-type").value = statementList[index].statementType;
+    document.getElementById("amount").value = statementList[index].statementAmount;
+    document.getElementById("description").value = statementList[index].statementDesc;
 }
 
 function deleteButtonOnClick(index){
-  if (confirm("Are you sure you want to delete : "+customerList[index].customerName)) {
-    fetch(ROOT_URL+"/customer/" + customerList[index].customerId, {
+  if (confirm("Are you sure you want to delete : "+statementList[index].statementDate.slice(0, 10))) {
+    fetch(ROOT_URL+"/statement/" + statementList[index].statementId, {
       method: 'DELETE',
     })
     .then(response => {
-//        console.log(response.json());
-        getCustomerData();
+        getStatementData();
     });
   }
 }
@@ -87,11 +84,11 @@ function deleteButtonOnClick(index){
 function resetButtonOnClick(){
     mode = "I";
 
-    document.getElementById("customer-id").value = "";
-    document.getElementById("customer-name").value = "";
-    document.getElementById("birthdate").value = "";
-    document.getElementById("address").value = "";
-    document.getElementById("active-flag").value = "";
+    document.getElementById("statement-id").value = "";
+    document.getElementById("statement-date").value = "";
+    document.getElementById("statement-type").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("description").value = "";
 }
 
-window.onload = getCustomerData();
+window.onload = getStatementData();
