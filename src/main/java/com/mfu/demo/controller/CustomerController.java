@@ -25,17 +25,17 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<?> createCustomer(@RequestBody @Validated CustomerEntity item){
-        Optional<CustomerEntity> consumptionObj = Optional.ofNullable(customerService.createCustomer(item));
-        return ResponseEntity.status(HttpStatus.CREATED).body(consumptionObj);
+        Optional<CustomerEntity> customerObj = Optional.ofNullable(customerService.createCustomer(item));
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerObj);
     }
 
     @PutMapping
     public ResponseEntity<?> updateCustomer(@RequestBody @Validated CustomerEntity item){
-        Optional<CustomerEntity> consumptionObj = Optional.ofNullable(customerService.updateCustomer(item));
-        if(!consumptionObj.isPresent()) {
+        Optional<CustomerEntity> customerObj = Optional.ofNullable(customerService.updateCustomer(item));
+        if(!customerObj.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(consumptionObj);
+        return ResponseEntity.ok(customerObj);
     }
 
     @DeleteMapping(path = "/{id}")

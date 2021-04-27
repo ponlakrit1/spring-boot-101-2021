@@ -26,8 +26,8 @@ public class OrdersEntity {
     @Column(name="order_detail")
     private String orderDetail;
 
-    @Column(name="customer_id")
-    private int customerId;
+//    @Column(name="customer_id")
+//    private int customerId;
 
     public OrdersEntity(){
 
