@@ -49,4 +49,8 @@ public class StatementService {
         return (List<StatementEntity>) statementRepository.findAll();
     }
 
+    public List<StatementEntity> findByStatementType(String statementType){
+        return statementRepository.findByStatementType(statementType);
+    }
+
 }

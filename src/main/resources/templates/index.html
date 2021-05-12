@@ -4,7 +4,7 @@
     <title>ASSIGNMENT STATEMENT</title>
 
 <!--    <script src="./../static/demo.js"></script>-->
-    <script type="text/javascript" th:src="@{/demo-assignment.js}"></script>
+    <script type="text/javascript" th:src="@{/assignment.js}"></script>
 
 </head>
 <body>
@@ -29,6 +29,13 @@
 
     <br/>
     <hr/>
+    Type :
+    <select id="statement-type-search" onchange="onChangeStatementTypeSearch()">
+        <option value=""></option>
+        <option value="I">Income</option>
+        <option value="E">Expense</option>
+    </select>
+    <br/>
 
     <div id="content"></div>
 </body>

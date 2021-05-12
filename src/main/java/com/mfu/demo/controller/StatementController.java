@@ -49,4 +49,9 @@ public class StatementController {
         return statementService.findAllStatement();
     }
 
+    @GetMapping(path = "/find/type/{statementType}")
+    public List<StatementEntity> findByActiveFlag(@PathVariable String statementType){
+        return statementService.findByStatementType(statementType);
+    }
+
 }
